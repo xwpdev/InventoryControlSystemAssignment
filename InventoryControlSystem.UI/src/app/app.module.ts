@@ -1,8 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { JwtModule } from "@auth0/angular-jwt";
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
 
 @NgModule({
   declarations: [
@@ -10,7 +16,13 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ["https://localhost:44364"]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
