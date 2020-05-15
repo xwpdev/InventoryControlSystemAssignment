@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // redirect to Auth0 login page
     setTimeout(() => {
-      this.Login();
+      // this.Login();
     }, 500);
   }
 
