@@ -5,76 +5,8 @@ import auth0 from 'auth0-js';
 
 import { AUTH_CONFIG } from '../../configs/auth';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
-
-  // auth0Client = (from(
-  //   createAuth0Client({
-  //     domain: AUTH_CONFIG.YOUR_DOMAIN,
-  //     client_id: AUTH_CONFIG.YOUR_CLIENT_ID,
-  //     redirect_uri: AUTH_CONFIG.REDIRECT_URI
-  //   })
-  // ) as Observable<Auth0Client>).pipe(
-  //   shareReplay(1),
-  //   catchError(err => throwError(err))
-  // );
-
-  // isAuthenticated$ = this.auth0Client.pipe(
-  //   concatMap((client: Auth0Client) => from(client.isAuthenticated())),
-  //   tap(res => this.loggedIn = res)
-  // );
-
-  // handleRedirectCallback$ = this.auth0Client.pipe(
-  //   concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
-  // );
-
-  // private userProfileSubject$ = new BehaviorSubject<any>(null);
-  // userProfile$ = this.userProfileSubject$.asObservable();
-
-  // loggedIn: boolean = null;
-
-  // constructor(private router: Router) {
-  //   this.localAuthSetup();
-  // }
-
-  // getUser$(options?): Observable<any> {
-  //   return this.auth0Client.pipe(
-  //     concatMap((client: Auth0Client) => from(client.getUser(options))),
-  //     tap(user => this.userProfileSubject$.next(user))
-  //   );
-  // }
-
-  // private localAuthSetup() {
-  //   const checkAuth$ = this.isAuthenticated$.pipe(
-  //     concatMap((loggedIn: boolean) => {
-  //       if (loggedIn) {
-  //         return this.getUser$();
-  //       }
-  //       return of(loggedIn);
-  //     })
-  //   );
-  //   checkAuth$.subscribe();
-  // }
-
-  // login(redirectPath: string = '/') {
-  //   this.auth0Client.subscribe((client: Auth0Client) => {
-  //     client.loginWithRedirect({
-  //       redirect_uri: AUTH_CONFIG.REDIRECT_URI,
-  //       appState: { target: redirectPath }
-  //     });
-  //   });
-  // }
-
-  // logout() {
-  //   this.auth0Client.subscribe((client: Auth0Client) => {
-  //     client.logout({
-  //       client_id: AUTH_CONFIG.YOUR_CLIENT_ID,
-  //       returnTo: `${window.location.origin}`
-  //     });
-  //   });
-  // }
 
   userProfile: any;
 
@@ -96,10 +28,9 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.setSession(authResult);
-        this.router.navigate([AUTH_CONFIG.REDIRECT_URI]);
+        this.router.navigate(['/inventory']);
       } else if (err) {
-        let returnTo = `${window.location.origin}/login`;
-        this.router.navigate([returnTo]);
+        this.router.navigate(['/inventory']);
         console.log(err);
       }
     });
@@ -121,8 +52,6 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    // Check whether the current time is past the
-    // access token's expiry time
     const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }

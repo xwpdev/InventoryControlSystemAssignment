@@ -8,10 +8,11 @@ import { AuthService } from './services/auth.service';
 })
 
 export class AppComponent {
+  constructor(private authService: AuthService) {
+    authService.handleAuthentication();
+  }
 
-  constructor(private authService: AuthService) { }
-
-  IsLogged() {
-    return !this.authService.isAuthenticated() === true;
+  get IsLogged() {
+    return this.authService.isAuthenticated() === true;
   }
 }

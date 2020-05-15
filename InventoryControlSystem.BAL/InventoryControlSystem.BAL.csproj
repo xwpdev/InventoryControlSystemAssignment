@@ -43,5 +43,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InventoryControlSystem.DAL\InventoryControlSystem.DAL.csproj">
+      <Project>{111bbe7b-c763-4e1d-b6ba-068e788ab38a}</Project>
+      <Name>InventoryControlSystem.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

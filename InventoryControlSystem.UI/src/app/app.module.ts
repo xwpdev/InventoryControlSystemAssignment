@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { AuthService } from './services/auth.service';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -30,7 +31,7 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

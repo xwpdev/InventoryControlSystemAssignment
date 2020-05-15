@@ -15,9 +15,4 @@ export class HeaderComponent implements OnInit {
   Logout() {
     this.authService.logout();
   }
-
-  GetUsername() {
-    // TODO: GET User Details
-    return '';
-  }
 }
