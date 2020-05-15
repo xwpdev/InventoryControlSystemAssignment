@@ -6,14 +6,8 @@ import { InventoryComponent } from './inventory/inventory.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'inventory',
-    component: InventoryComponent
-  }
+  { path: 'login', component: LoginComponent },
+  { path: 'inventory', component: InventoryComponent }
 ];
 
 @NgModule({

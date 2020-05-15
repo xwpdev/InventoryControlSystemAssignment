@@ -11,6 +11,10 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    // redirect to Auth0 login page
+    setTimeout(() => {
+      this.Login();
+    }, 500);
   }
 
   Login() {
