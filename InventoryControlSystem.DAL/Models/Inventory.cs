@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryControlSystem.DAL.Models
 {
@@ -14,6 +13,8 @@ namespace InventoryControlSystem.DAL.Models
         public int UnitCount { get; set; }
         
         public decimal UnitPrice { get; set; }
+
+        public int ReorderCount { get; set; }
 
         public string AddedBy { get; set; }
 

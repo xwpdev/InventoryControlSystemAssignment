@@ -51,14 +51,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IInventoryRepository.cs" />
     <Compile Include="InventorySystemContext.cs" />
     <Compile Include="Migrations\202005151929141_Initial.cs" />
     <Compile Include="Migrations\202005151929141_Initial.designer.cs">
       <DependentUpon>202005151929141_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005152031202_Update1.cs" />
+    <Compile Include="Migrations\202005152031202_Update1.designer.cs">
+      <DependentUpon>202005152031202_Update1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\InventoryRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -68,7 +74,11 @@
     <EmbeddedResource Include="Migrations\202005151929141_Initial.resx">
       <DependentUpon>202005151929141_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005152031202_Update1.resx">
+      <DependentUpon>202005152031202_Update1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
