@@ -9,6 +9,11 @@ namespace InventoryControlSystem.API.Controllers
 {
     public class InventoryController : ApiController
     {
-
+        [Authorize]
+        [HttpGet]
+        public IHttpActionResult Get()
+        {
+            return Ok();
+        }
     }
 }
