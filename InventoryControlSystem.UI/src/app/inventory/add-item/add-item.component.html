@@ -43,7 +43,7 @@
       <div class="row">
         <div class="col-6">
           <div class="form-group">
-            <h6>Number of units available</h6>
+            <h6>Number of units available*</h6>
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -61,7 +61,7 @@
 
         <div class="col-6">
           <div class="form-group">
-            <h6>Re-order level</h6>
+            <h6>Re-order level*</h6>
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -93,14 +93,14 @@
             </div>
             <span class="text-danger"
               *ngIf="AddItemForm.controls.control_unit_price.dirty && AddItemForm.controls.control_unit_price.hasError('required')">
-              Unit price required</span>
+              Unit price required*</span>
           </div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary" [disabled]="AddItemForm.invalid" id="btnSave"
-        (click)="AddItem()">Save</button>
+        (click)="SaveItem()">Save</button>
       <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
     </div>
   </form>

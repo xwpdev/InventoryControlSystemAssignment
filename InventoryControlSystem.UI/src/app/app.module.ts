@@ -13,6 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddItemComponent } from './inventory/add-item/add-item.component';
+import { ConfirmationModalComponent } from './shared/confirmation-modal/confirmation-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -24,7 +25,8 @@ export function tokenGetter() {
     HeaderComponent,
     LoginComponent,
     InventoryComponent,
-    AddItemComponent
+    AddItemComponent,
+    ConfirmationModalComponent
   ],
   imports: [
     BrowserModule,

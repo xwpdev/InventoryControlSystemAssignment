@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { InventoryService } from 'src/app/services/inventory.service';
@@ -11,10 +11,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./add-item.component.scss']
 })
 export class AddItemComponent implements OnInit {
-  userProfile;
+  @Input() ActiveItem: Inventory;
+
+  UserProfile;    // Auth0 User Data
+
   constructor(public activeModal: NgbActiveModal, private inventoryService: InventoryService, private authService: AuthService) {
     this.authService.getProfile((error, profile) => {
-      this.userProfile = profile;
+      this.UserProfile = profile;
     });
   }
 
@@ -33,27 +36,55 @@ export class AddItemComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    if (this.ActiveItem) {
+      this.control_name.setValue(this.ActiveItem.name);
+      this.control_description.setValue(this.ActiveItem.description);
+      this.control_unit_count.setValue(this.ActiveItem.unitCount);
+      this.control_unit_price.setValue(this.ActiveItem.unitPrice);
+      this.control_unit_reorderlevel.setValue(this.ActiveItem.reorderCount);
+    }
   }
 
-  AddItem() {
-    let newItem: Inventory = {
-      name: this.control_name.value,
-      description: this.control_description.value,
-      unitCount: this.control_unit_count.value,
-      unitPrice: this.control_unit_price.value,
-      reorderCount: this.control_unit_reorderlevel.value,
-      addedBy: this.userProfile["sub"],
-      addedByName: this.userProfile["name"],
-      addedDate: new Date()
-    };
+  SaveItem() {
+    if (this.ActiveItem) {
+      this.ActiveItem.name = this.control_name.value;
+      this.ActiveItem.description = this.control_description.value;
+      this.ActiveItem.unitCount = this.control_unit_count.value;
+      this.ActiveItem.unitPrice = this.control_unit_price.value;
+      this.ActiveItem.reorderCount = this.control_unit_reorderlevel.value;
+      this.ActiveItem.updatedBy = this.UserProfile["sub"];
+      this.ActiveItem.updatedByName = this.UserProfile["name"];
+      this.ActiveItem.updatedDate = new Date();
 
-    var sub = this.inventoryService.Add(newItem).subscribe((res) => {
-      alert("Item added successfully!");
-      this.AddItemForm.reset();
-      this.activeModal.close();
+      var sub = this.inventoryService.Update(this.ActiveItem).subscribe((res) => {
+        alert("Item updated successfully!");
+        this.AddItemForm.reset();
+        this.activeModal.close();
+      }
+      ).add(() => {
+        sub.unsubscribe();
+      });
+
+    } else {
+      let newItem: Inventory = {
+        name: this.control_name.value,
+        description: this.control_description.value,
+        unitCount: this.control_unit_count.value,
+        unitPrice: this.control_unit_price.value,
+        reorderCount: this.control_unit_reorderlevel.value,
+        addedBy: this.UserProfile["sub"],
+        addedByName: this.UserProfile["name"],
+        addedDate: new Date()
+      };
+
+      var sub = this.inventoryService.Add(newItem).subscribe((res) => {
+        alert("Item added successfully!");
+        this.AddItemForm.reset();
+        this.activeModal.close();
+      }
+      ).add(() => {
+        sub.unsubscribe();
+      });
     }
-    ).add(() => {
-      sub.unsubscribe();
-    })
   }
 }

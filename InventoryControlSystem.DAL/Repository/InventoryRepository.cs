@@ -37,6 +37,7 @@ namespace InventoryControlSystem.DAL.Repository
         {
             var item = _dbContext.Inventory.Where(x => x.Id == data.Id).FirstOrDefault();
             item.Name = data.Name;
+            item.Description = data.Description;
             item.UnitCount = data.UnitCount;
             item.UnitPrice = data.UnitPrice;
             item.ReorderCount = data.ReorderCount;

@@ -31,10 +31,10 @@
           <td>{{item.addedByName}}</td>
           <td>
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-sm btn-info">
+              <button type="button" class="btn btn-sm btn-info" (click)="OpenEditModal(item)">
                 <i class="far fa-edit"></i>
               </button>
-              <button type="button" class="btn btn-sm btn-danger">
+              <button type="button" class="btn btn-sm btn-danger" (click)="OpenDeleteConfirmation(item)">
                 <i class="far fa-trash-alt"></i>
               </button>
             </div>

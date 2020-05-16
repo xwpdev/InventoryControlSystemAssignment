@@ -45,9 +45,9 @@ namespace InventoryControlSystem.API.Controllers
         }
 
         [HttpDelete]
-        public IHttpActionResult Delete(int data)
+        public IHttpActionResult Delete(int id)
         {
-            return Ok(_inventoryServiceProvider.DeleteItem(data));
+            return Ok(_inventoryServiceProvider.DeleteItem(id));
         }
     }
 }

@@ -25,13 +25,16 @@ export class InventoryService {
       .pipe(catchError(CustomErrorHandler.handle))
   }
 
-  Delete(data: Inventory): Observable<boolean> {
+  Update(data: Inventory): Observable<Inventory> {
     return this.httpClient
-      .post<boolean>(this.endpoint, {
-        params: {
-          inventoryId: data.id
-        }
-      })
+      .put<Inventory>(this.endpoint, data)
+      .pipe(catchError(CustomErrorHandler.handle))
+  }
+
+  Delete(id: number): Observable<boolean> {
+    let url = `${this.endpoint}?id=${id}`;
+    return this.httpClient
+      .delete<boolean>(url)
       .pipe(catchError(CustomErrorHandler.handle))
   }
 }
