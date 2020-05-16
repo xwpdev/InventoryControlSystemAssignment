@@ -39,14 +39,34 @@ namespace InventoryControlSystem.BAL.Services
             return mapper.Map<InventoryDto[]>(_inventoryRepository.GetItems());
         }
 
+        public InventoryDto Get(int id)
+        {
+            return mapper.Map<InventoryDto>(_inventoryRepository.GetItem(id));
+        }
+
         public InventoryDto AddItem(InventoryDto item)
         {
             item.AddedDate = DateTime.Parse(item.AddedDate.ToString());
-            item.UpdatedDate= DateTime.Parse(item.UpdatedDate.ToString());
+            item.UpdatedDate = DateTime.Parse(item.UpdatedDate.ToString());
 
             var response = _inventoryRepository.AddItem(mapper.Map<Inventory>(item));
             item.Id = response.Id;
             return item;
+        }
+
+        public InventoryDto UpdateItem(InventoryDto item)
+        {
+            item.AddedDate = DateTime.Parse(item.AddedDate.ToString());
+            item.UpdatedDate = DateTime.Parse(item.UpdatedDate.ToString());
+
+            var response = _inventoryRepository.UpdateItem(mapper.Map<Inventory>(item));
+            item.Id = response.Id;
+            return item;
+        }
+
+        public bool DeleteItem(int id)
+        {
+            return _inventoryRepository.DeleteItem(id);
         }
     }
 }

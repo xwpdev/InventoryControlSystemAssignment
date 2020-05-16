@@ -20,17 +20,34 @@ namespace InventoryControlSystem.API.Controllers
             this._inventoryServiceProvider = new InventoryServiceProvider();
         }
 
-        // [Authorize]
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_inventoryServiceProvider.List());
         }
 
+        [HttpGet]
+        public IHttpActionResult Get(int id)
+        {
+            return Ok(_inventoryServiceProvider.Get(id));
+        }
+
         [HttpPost]
         public IHttpActionResult Post(InventoryDto data)
         {
             return Ok(_inventoryServiceProvider.AddItem(data));
+        }
+
+        [HttpPut]
+        public IHttpActionResult Put(InventoryDto data)
+        {
+            return Ok(_inventoryServiceProvider.UpdateItem(data));
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(int data)
+        {
+            return Ok(_inventoryServiceProvider.DeleteItem(data));
         }
     }
 }

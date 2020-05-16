@@ -20,6 +20,11 @@ namespace InventoryControlSystem.DAL.Repository
             return _dbContext.Inventory;
         }
 
+        public Inventory GetItem(int id)
+        {
+            return _dbContext.Inventory.Where(x => x.Id == id).FirstOrDefault();
+        }
+
         public Inventory AddItem(Inventory data)
         {
             _dbContext.Inventory.Add(data);
@@ -52,7 +57,7 @@ namespace InventoryControlSystem.DAL.Repository
                 var item = _dbContext.Inventory.Where(x => x.Id == id).FirstOrDefault();
                 _dbContext.Inventory.Remove(item);
 
-                _dbContext.Entry(item).State = EntityState.Modified;
+                _dbContext.Entry(item).State = EntityState.Deleted;
 
                 _dbContext.SaveChanges();
 
