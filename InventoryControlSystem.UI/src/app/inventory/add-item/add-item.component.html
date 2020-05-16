@@ -11,18 +11,32 @@
       <div class="row">
         <div class="col-12">
           <div class="form-group">
-            <h6>Item Name</h6>
+            <h6>Item Name*</h6>
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">
                   <i class="fas fa-wrench"></i>
                 </div>
               </div>
-              <input type="text" class="form-control" id="itemName" formControlName="control_name">
+              <input type="text" class="form-control" id="control_name" formControlName="control_name">
             </div>
             <span class="text-danger"
               *ngIf="AddItemForm.controls.control_name.dirty && AddItemForm.controls.control_name.hasError('required')">
               Item Name Required</span>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <h6>Description</h6>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-list-ul"></i>
+                </div>
+              </div>
+              <textarea name="control_description" class="form-control" id="control_description" cols="10" rows="2"
+                formControlName="control_description"></textarea>
+            </div>
           </div>
         </div>
       </div>
@@ -36,7 +50,8 @@
                   <i class="fas fa-box-open"></i>
                 </div>
               </div>
-              <input type="number" min="0" class="form-control" id="itemUnitCount" formControlName="control_unit_count">
+              <input type="number" min="0" class="form-control" id="control_unit_count"
+                formControlName="control_unit_count">
             </div>
             <span class="text-danger"
               *ngIf="AddItemForm.controls.control_unit_count.dirty && AddItemForm.controls.control_unit_count.hasError('required')">
@@ -53,7 +68,8 @@
                   <i class="fas fa-truck-loading"></i>
                 </div>
               </div>
-              <input type="number" min="0" class="form-control" id="itemName" formControlName="control_unit_reorderlevel">
+              <input type="number" min="0" class="form-control" id="control_unit_reorderlevel"
+                formControlName="control_unit_reorderlevel">
             </div>
             <span class="text-danger"
               *ngIf="AddItemForm.controls.control_unit_reorderlevel.dirty && AddItemForm.controls.control_unit_reorderlevel.hasError('required')">
@@ -69,10 +85,11 @@
             <div class="input-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">
-                  <i class="fas fa-coins"></i>
+                  Rs.
                 </div>
               </div>
-              <input type="number" min="0" step="0.1" class="form-control" id="itemName" formControlName="control_unit_price">
+              <input type="number" min="0" step="0.1" class="form-control" id="control_unit_price"
+                formControlName="control_unit_price">
             </div>
             <span class="text-danger"
               *ngIf="AddItemForm.controls.control_unit_price.dirty && AddItemForm.controls.control_unit_price.hasError('required')">

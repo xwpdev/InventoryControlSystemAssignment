@@ -29,7 +29,7 @@ export class InventoryService {
     return this.httpClient
       .post<boolean>(this.endpoint, {
         params: {
-          inventoryId: data.Id
+          inventoryId: data.id
         }
       })
       .pipe(catchError(CustomErrorHandler.handle))

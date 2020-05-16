@@ -1,20 +1,54 @@
-<div class=" row">
-  <div class="col-12">
-    <h3>Inventory</h3>
-    <button class="btn btn-info" (click)="OpenAddModal()">Add New</button>
-  </div>
-</div>
-
 <div class="row mb-4">
   <div class="col-12">
-
+    <h3>Inventory</h3>
+    <button class="btn btn-success" (click)="OpenAddModal()">Add New</button>
   </div>
 </div>
 
-<div class="row" *ngIf="ItemList.length == 0">
+<div class="row mb-4" *ngIf="!IsLoading">
+  <div class="col-12">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Unit Price</th>
+          <th scope="col">Number of Units</th>
+          <th scope="col">Re-order Level</th>
+          <th scope="col">Added By</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of ItemList">
+          <td>{{item.id}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.unitPrice}}</td>
+          <td>{{item.unitCount}}</td>
+          <td>{{item.reorderCount}}</td>
+          <td>{{item.addedByName}}</td>
+          <td>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-sm btn-info">
+                <i class="far fa-edit"></i>
+              </button>
+              <button type="button" class="btn btn-sm btn-danger">
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row" *ngIf="IsLoading">
   <div class="col-12">
     <div class="alert alert-warning " role="alert">
-      No items available
+      {{ (ItemList?.length == 0) ? 'No items available':'Loading...' }}
     </div>
   </div>
 </div>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { InventoryService } from 'src/app/services/inventory.service';
+import Inventory from 'src/app/models/inventory';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add-item',
@@ -8,16 +11,22 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-item.component.scss']
 })
 export class AddItemComponent implements OnInit {
-
-  constructor(public activeModal: NgbActiveModal) { }
+  userProfile;
+  constructor(public activeModal: NgbActiveModal, private inventoryService: InventoryService, private authService: AuthService) {
+    this.authService.getProfile((error, profile) => {
+      this.userProfile = profile;
+    });
+  }
 
   control_name: FormControl = new FormControl('', [Validators.required]);
+  control_description: FormControl = new FormControl('', []);
   control_unit_count: FormControl = new FormControl('', [Validators.required]);
   control_unit_price: FormControl = new FormControl('', [Validators.required]);
   control_unit_reorderlevel: FormControl = new FormControl('', [Validators.required]);
 
   AddItemForm = new FormGroup({
     control_name: this.control_name,
+    control_description: this.control_description,
     control_unit_count: this.control_unit_count,
     control_unit_price: this.control_unit_price,
     control_unit_reorderlevel: this.control_unit_reorderlevel,
@@ -26,7 +35,25 @@ export class AddItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  AddItem(){
+  AddItem() {
+    let newItem: Inventory = {
+      name: this.control_name.value,
+      description: this.control_description.value,
+      unitCount: this.control_unit_count.value,
+      unitPrice: this.control_unit_price.value,
+      reorderCount: this.control_unit_reorderlevel.value,
+      addedBy: this.userProfile["sub"],
+      addedByName: this.userProfile["name"],
+      addedDate: new Date()
+    };
 
+    var sub = this.inventoryService.Add(newItem).subscribe((res) => {
+      alert("Item added successfully!");
+      this.AddItemForm.reset();
+      this.activeModal.close();
+    }
+    ).add(() => {
+      sub.unsubscribe();
+    })
   }
 }

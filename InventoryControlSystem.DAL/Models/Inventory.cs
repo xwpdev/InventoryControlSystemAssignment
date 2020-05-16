@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryControlSystem.DAL.Models
 {
@@ -9,6 +10,8 @@ namespace InventoryControlSystem.DAL.Models
         public int Id { get; set; }
 
         public string Name { get; set; }
+        
+        public string Description { get; set; }
 
         public int UnitCount { get; set; }
         
@@ -18,10 +21,16 @@ namespace InventoryControlSystem.DAL.Models
 
         public string AddedBy { get; set; }
 
+        public string AddedByName { get; set; }
+        
+        [Column(TypeName = "datetime2")]
         public DateTime AddedDate { get; set; }
 
         public string UpdatedBy { get; set; }
 
+        public string UpdatedName { get; set; }
+
+        [Column(TypeName = "datetime2")]
         public DateTime UpdatedDate { get; set; }
     }
 }

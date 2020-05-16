@@ -1,9 +1,14 @@
 export default class Inventory {
-  Id: number;
-  Name: string;
-  UnitCount: number;
-  ReorderCount: number;
-  UnitPrice: number;
-  AddedBy: string;
-  UpdatedBy: string;
+  id?: number;
+  name: string;
+  description?: string;
+  unitCount: number;
+  reorderCount: number;
+  unitPrice: number;
+  addedBy: string;
+  addedByName: string;
+  addedDate: Date;
+  updatedBy?: string;
+  updatedByName?: string;
+  updatedDate?: Date;
 }

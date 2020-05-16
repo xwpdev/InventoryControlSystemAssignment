@@ -61,15 +61,13 @@ export class AuthService {
     return scopes.every(scope => grantedScopes.includes(scope));
   }
 
-  public getUserProfile() {
+  public getUserProfile(): any {
     this.getProfile((err, profile) => {
       return profile;
     });
   }
 
-  constructor(public router: Router) { }
-
-  private getProfile(cb): void {
+  public getProfile(cb): void {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
       throw new Error('Access token must exist to fetch profile');
@@ -82,6 +80,8 @@ export class AuthService {
       cb(err, profile);
     });
   }
+
+  constructor(public router: Router) { }
 
   private setSession(authResult): void {
     // Set the time that the access token will expire at

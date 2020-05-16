@@ -15,9 +15,17 @@ namespace InventoryControlSystem.BAL.Services
     public class InventoryServiceProvider : IInventoryServiceProvider
     {
         readonly IInventoryRepository _inventoryRepository;
+        readonly Mapper mapper;
 
         public InventoryServiceProvider()
         {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<InventoryDto, Inventory>();
+                cfg.CreateMap<Inventory, InventoryDto>();
+            });
+            mapper = new Mapper(config);
+
             _inventoryRepository = new InventoryRepository();
         }
 
@@ -28,17 +36,15 @@ namespace InventoryControlSystem.BAL.Services
 
         public IEnumerable<InventoryDto> List()
         {
-            return _inventoryRepository.GetItems().Select(x => new InventoryDto { 
-                //TODOL: set params
-            });
+            return mapper.Map<InventoryDto[]>(_inventoryRepository.GetItems());
         }
 
         public InventoryDto AddItem(InventoryDto item)
         {
-            var tempItem = new Inventory();
-            //TODOL: set props
+            item.AddedDate = DateTime.Parse(item.AddedDate.ToString());
+            item.UpdatedDate= DateTime.Parse(item.UpdatedDate.ToString());
 
-            var response = _inventoryRepository.AddItem(tempItem);
+            var response = _inventoryRepository.AddItem(mapper.Map<Inventory>(item));
             item.Id = response.Id;
             return item;
         }

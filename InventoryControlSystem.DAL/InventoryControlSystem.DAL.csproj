@@ -61,6 +61,18 @@
     <Compile Include="Migrations\202005152031202_Update1.designer.cs">
       <DependentUpon>202005152031202_Update1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005160954297_Update2.cs" />
+    <Compile Include="Migrations\202005160954297_Update2.designer.cs">
+      <DependentUpon>202005160954297_Update2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005161014372_Update3.cs" />
+    <Compile Include="Migrations\202005161014372_Update3.designer.cs">
+      <DependentUpon>202005161014372_Update3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005161021238_Update4.cs" />
+    <Compile Include="Migrations\202005161021238_Update4.designer.cs">
+      <DependentUpon>202005161021238_Update4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +88,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005152031202_Update1.resx">
       <DependentUpon>202005152031202_Update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005160954297_Update2.resx">
+      <DependentUpon>202005160954297_Update2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005161014372_Update3.resx">
+      <DependentUpon>202005161014372_Update3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005161021238_Update4.resx">
+      <DependentUpon>202005161021238_Update4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

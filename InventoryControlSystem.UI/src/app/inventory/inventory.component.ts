@@ -10,7 +10,12 @@ import { AddItemComponent } from './add-item/add-item.component';
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent implements OnInit {
+  isLoading = false;
   ItemList: Inventory[];
+
+  get IsLoading() {
+    return this.isLoading;
+  }
   constructor(private inventoryService: InventoryService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -26,9 +31,11 @@ export class InventoryComponent implements OnInit {
     });
   }
 
-  private loadList(){
-    this.inventoryService.List().subscribe(res=>{
+  private loadList() {
+    this.isLoading = true;
+    this.inventoryService.List().subscribe(res => {
       this.ItemList = res;
+      this.isLoading = false;
     });
   }
 }
