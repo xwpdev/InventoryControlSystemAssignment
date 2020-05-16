@@ -7,8 +7,13 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  UserProfile;    // Auth0 User Data
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {
+    this.authService.getProfile((error, profile) => {
+      this.UserProfile = profile;
+    });
+  }
 
   ngOnInit(): void { }
 

@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     // redirect to Auth0 login page
     setTimeout(() => {
       this.Login();
-    }, 500);
+    }, 1500);
   }
 
   Login() {
