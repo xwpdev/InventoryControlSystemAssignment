@@ -1,4 +1,7 @@
-﻿using System;
+﻿using InventoryControlSystem.BAL.Interfaces;
+using InventoryControlSystem.BAL.Services;
+using InventoryControlSystem.DAL.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,11 +12,18 @@ namespace InventoryControlSystem.API.Controllers
 {
     public class InventoryController : ApiController
     {
-        [Authorize]
+        readonly IInventoryServiceProvider _inventoryServiceProvider;
+
+        public InventoryController()
+        {
+            this._inventoryServiceProvider = new InventoryServiceProvider();
+        }
+
+        //[Authorize]
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok();
+            return Ok(_inventoryServiceProvider.List());
         }
     }
 }
