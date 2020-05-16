@@ -1,4 +1,5 @@
-﻿using InventoryControlSystem.BAL.Interfaces;
+﻿using InventoryControlSystem.BAL.DTO;
+using InventoryControlSystem.BAL.Interfaces;
 using InventoryControlSystem.BAL.Services;
 using InventoryControlSystem.DAL.Repository;
 using System;
@@ -19,11 +20,17 @@ namespace InventoryControlSystem.API.Controllers
             this._inventoryServiceProvider = new InventoryServiceProvider();
         }
 
-        //[Authorize]
+        // [Authorize]
         [HttpGet]
         public IHttpActionResult Get()
         {
             return Ok(_inventoryServiceProvider.List());
+        }
+
+        [HttpPost]
+        public IHttpActionResult Post(InventoryDto data)
+        {
+            return Ok(_inventoryServiceProvider.AddItem(data));
         }
     }
 }

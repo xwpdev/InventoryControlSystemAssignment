@@ -10,5 +10,6 @@ namespace InventoryControlSystem.BAL.Interfaces
     public interface IInventoryServiceProvider
     {
         IEnumerable<InventoryDto> List();
+        InventoryDto AddItem(InventoryDto item);
     }
 }

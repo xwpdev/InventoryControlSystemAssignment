@@ -28,7 +28,19 @@ namespace InventoryControlSystem.BAL.Services
 
         public IEnumerable<InventoryDto> List()
         {
-            return _inventoryRepository.GetItems().Select(x => new InventoryDto { });
+            return _inventoryRepository.GetItems().Select(x => new InventoryDto { 
+                //TODOL: set params
+            });
+        }
+
+        public InventoryDto AddItem(InventoryDto item)
+        {
+            var tempItem = new Inventory();
+            //TODOL: set props
+
+            var response = _inventoryRepository.AddItem(tempItem);
+            item.Id = response.Id;
+            return item;
         }
     }
 }

@@ -9,6 +9,10 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { AuthService } from './services/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddItemComponent } from './inventory/add-item/add-item.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -19,17 +23,23 @@ export function tokenGetter() {
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    InventoryComponent
+    InventoryComponent,
+    AddItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
         whitelistedDomains: ["https://localhost:44364"]
       }
-    })
+    }),
+    NgbModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

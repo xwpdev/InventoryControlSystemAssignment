@@ -1,0 +1,90 @@
+<!-- Add New Modal -->
+<div class="add-item-modal">
+  <div class="modal-header">
+    <h4 class="modal-title">Add New Item</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="AddItemForm">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <h6>Item Name</h6>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-wrench"></i>
+                </div>
+              </div>
+              <input type="text" class="form-control" id="itemName" formControlName="control_name">
+            </div>
+            <span class="text-danger"
+              *ngIf="AddItemForm.controls.control_name.dirty && AddItemForm.controls.control_name.hasError('required')">
+              Item Name Required</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <h6>Number of units available</h6>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-box-open"></i>
+                </div>
+              </div>
+              <input type="number" min="0" class="form-control" id="itemUnitCount" formControlName="control_unit_count">
+            </div>
+            <span class="text-danger"
+              *ngIf="AddItemForm.controls.control_unit_count.dirty && AddItemForm.controls.control_unit_count.hasError('required')">
+              Number of units required</span>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <h6>Re-order level</h6>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-truck-loading"></i>
+                </div>
+              </div>
+              <input type="number" min="0" class="form-control" id="itemName" formControlName="control_unit_reorderlevel">
+            </div>
+            <span class="text-danger"
+              *ngIf="AddItemForm.controls.control_unit_reorderlevel.dirty && AddItemForm.controls.control_unit_reorderlevel.hasError('required')">
+              Re-order level required</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group">
+            <h6>Unit price</h6>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-coins"></i>
+                </div>
+              </div>
+              <input type="number" min="0" step="0.1" class="form-control" id="itemName" formControlName="control_unit_price">
+            </div>
+            <span class="text-danger"
+              *ngIf="AddItemForm.controls.control_unit_price.dirty && AddItemForm.controls.control_unit_price.hasError('required')">
+              Unit price required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="AddItemForm.invalid" id="btnSave"
+        (click)="AddItem()">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+    </div>
+  </form>
+</div>

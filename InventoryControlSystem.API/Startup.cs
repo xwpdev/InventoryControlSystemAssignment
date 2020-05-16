@@ -22,7 +22,6 @@ namespace InventoryControlSystem.API
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-
         }
 
         private void ConfigureAuthZero(IAppBuilder app)
