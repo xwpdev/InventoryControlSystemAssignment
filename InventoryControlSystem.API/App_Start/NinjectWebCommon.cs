@@ -1,79 +1,72 @@
-//[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(InventoryControlSystem.API.App_Start.NinjectWebCommon), "Start")]
-//[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(InventoryControlSystem.API.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(InventoryControlSystem.API.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(InventoryControlSystem.API.App_Start.NinjectWebCommon), "Stop")]
 
-//namespace InventoryControlSystem.API.App_Start
-//{
-//    using System;
-//    using System.Web;
-//    using System.Web.Http;
-//    using InventoryControlSystem.BAL.Interfaces;
-//    using InventoryControlSystem.BAL.Services;
-//    using InventoryControlSystem.DAL.Interfaces;
-//    using InventoryControlSystem.DAL.Repository;
-//    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+namespace InventoryControlSystem.API.App_Start
+{
+    using InventoryControlSystem.BAL.Interfaces;
+    using InventoryControlSystem.BAL.Services;
+    using InventoryControlSystem.DAL.Interfaces;
+    using InventoryControlSystem.DAL.Repository;
+    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+    using Ninject;
+    using Ninject.Web.Common;
+    using Ninject.Web.Common.WebHost;
+    using System;
+    using System.Web;
 
-//    using Ninject;
-//    using Ninject.Web.Common;
-//    using Ninject.Web.Common.WebHost;
-//    using WebApiContrib.IoC.Ninject;
+    public static class NinjectWebCommon
+    {
+        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
-//    public static class NinjectWebCommon
-//    {
-//        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        /// <summary>
+        /// Starts the application.
+        /// </summary>
+        public static void Start()
+        {
+            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
+            bootstrapper.Initialize(CreateKernel);
+        }
 
-//        /// <summary>
-//        /// Starts the application.
-//        /// </summary>
-//        public static void Start()
-//        {
-//            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
-//            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-//            bootstrapper.Initialize(CreateKernel);
-//        }
+        /// <summary>
+        /// Stops the application.
+        /// </summary>
+        public static void Stop()
+        {
+            bootstrapper.ShutDown();
+        }
 
-//        /// <summary>
-//        /// Stops the application.
-//        /// </summary>
-//        public static void Stop()
-//        {
-//            bootstrapper.ShutDown();
-//        }
+        /// <summary>
+        /// Creates the kernel that will manage your application.
+        /// </summary>
+        /// <returns>The created kernel.</returns>
+        private static IKernel CreateKernel()
+        {
+            var kernel = new StandardKernel();
 
-//        /// <summary>
-//        /// Creates the kernel that will manage your application.
-//        /// </summary>
-//        /// <returns>The created kernel.</returns>
-//        private static IKernel CreateKernel()
-//        {
-//            var kernel = new StandardKernel();
-//            try
-//            {
-//                kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-//                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-//                RegisterServices(kernel);
+            try
+            {
+                kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                RegisterServices(kernel);
 
-//                GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);
+                return kernel;
+            }
+            catch
+            {
+                kernel.Dispose();
+                throw;
+            }
+        }
 
-//                return kernel;
-//            }
-//            catch
-//            {
-//                kernel.Dispose();
-//                throw;
-//            }
-//        }
-
-//        /// <summary>
-//        /// Load your modules or register your services here!
-//        /// </summary>
-//        /// <param name="kernel">The kernel.</param>
-//        private static void RegisterServices(IKernel kernel)
-//        {
-//            //Service Provider
-//            kernel.Bind<IInventoryServiceProvider>().To<InventoryServiceProvider>();
-
-//            //Repo
-//            kernel.Bind<IInventoryRepository>().To<InventoryRepository>();
-//        }
-//    }
-//}
+        /// <summary>
+        /// Load your modules or register your services here!
+        /// </summary>
+        /// <param name="kernel">The kernel.</param>
+        private static void RegisterServices(IKernel kernel)
+        {
+            kernel.Bind<IInventoryServiceProvider>().To<InventoryServiceProvider>();
+            kernel.Bind<IInventoryRepository>().To<InventoryRepository>();
+        }
+    }
+}

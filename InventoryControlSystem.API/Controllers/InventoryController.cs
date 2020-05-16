@@ -15,9 +15,14 @@ namespace InventoryControlSystem.API.Controllers
     {
         readonly IInventoryServiceProvider _inventoryServiceProvider;
 
-        public InventoryController()
+        //public InventoryController()
+        //{
+        //    this._inventoryServiceProvider = new InventoryServiceProvider();
+        //}
+
+        public InventoryController(IInventoryServiceProvider inventoryServiceProvider)
         {
-            this._inventoryServiceProvider = new InventoryServiceProvider();
+            this._inventoryServiceProvider = inventoryServiceProvider;
         }
 
         [HttpGet]
